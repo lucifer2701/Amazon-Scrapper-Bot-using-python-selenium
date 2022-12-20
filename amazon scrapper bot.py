@@ -16,7 +16,6 @@ for product in products:
         product.find_element(by=By.TAG_NAME,value='a').click()
         driver.switch_to.window(driver.window_handles[1])
 
-
         try:
             title = driver.find_element(by=By.ID,value='productTitle').text
         except:
@@ -31,6 +30,7 @@ for product in products:
             price = "Not Available"
         try:
             discount = driver.find_element(by=By.XPATH,value='//span[@class="a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage"]').text
+            discount = str((-1)*int(discount[:3]))+discount[3:]
         except:
             discount = "Not Available"
         try:
@@ -41,11 +41,11 @@ for product in products:
         print(f"Title:- {title}")
         print(f"MRP:- {mrp}")
         print(f"Price:- {price}")
-        print(f"Discount:- {(-1)*discount}")
+        print(f"Discount:- {discount}")
         print(f"Availability:- {availability}")
         print(f"Url:- {driver.current_url}")
 
         driver.close()
         driver.switch_to.window(driver.window_handles[0])
     except:
-        print('INVALID')
+        print('\n')
